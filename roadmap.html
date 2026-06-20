@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Build &amp; Delivery Status — FixedIT Tech (internal)</title>
+<meta name="description" content="Internal planning page: what's been built on the FixedIT Tech site so far, and what's needed to actually deliver the service it advertises.">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* Self-contained styles for this internal page only */
+  .status-pill {
+    font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+    white-space: nowrap; font-weight: 500;
+  }
+  .status-done     { background: var(--presence-green-soft); color: var(--presence-green); }
+  .status-blocker  { background: rgba(184, 118, 46, 0.16); color: var(--warn-amber); }
+  .status-required { background: rgba(45, 95, 163, 0.14); color: var(--trust-blue); }
+  .status-later    { background: var(--pale-blue); color: var(--slate); }
+
+  .internal-banner {
+    background: var(--ink-navy); color: rgba(255,255,255,0.85);
+    font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.03em;
+    text-align: center; padding: 9px 16px;
+  }
+  .internal-banner strong { color: #fff; }
+
+  .item-card {
+    border: 1px solid var(--border-blue); border-radius: var(--radius);
+    padding: 22px 24px; background: var(--white); margin-top: 16px;
+  }
+  .item-card.is-done { background: var(--pale-blue); border-color: var(--border-blue); }
+  .item-head {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .item-head h3 { font-size: 1.12rem; margin: 0; }
+  .item-num {
+    font-family: var(--font-mono); font-size: 0.8rem; color: var(--slate-light);
+    flex-shrink: 0;
+  }
+  .item-card p { margin-top: 10px; font-size: 0.93rem; max-width: 80ch; }
+  .item-card .why { color: var(--ink-navy); font-weight: 500; }
+
+  .group-label {
+    font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--ink-navy); font-weight: 600;
+    margin-top: 44px; display: flex; align-items: center; gap: 12px;
+  }
+  .group-label .rule { flex: 1; height: 1px; background: var(--border-blue); }
+</style>
+</head>
+<body>
+
+<div class="internal-banner">
+  <strong>Internal planning page</strong> — not linked from the public site &middot; status snapshot, June 2026
+</div>
+
+<header class="site-nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo">fixed<span class="accent">IT</span>tech</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary">Book a Consultation</a>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-header">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span> Internal &middot; Build &amp; delivery status</span>
+    <h1>What's built, and what it takes to deliver the service.</h1>
+    <p class="lede">Two parts: the website work completed on the preview so far, and the real-world infrastructure, legal, and operational pieces needed before the practice-facing claims can actually be fulfilled.</p>
+  </div>
+</div>
+
+<!-- ============ PART 1: DONE ============ -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow" style="color: var(--presence-green);">Part 1 &middot; Shipped to preview</span>
+    <h2>What we've done so far</h2>
+    <p class="lede">All on an isolated fork &mdash; production <code>fixedittech.com</code> is untouched.</p>
+
+    <div class="item-card is-done">
+      <div class="item-head">
+        <span class="item-num">01</span>
+        <h3>Isolated preview pipeline</h3>
+        <span class="status-pill status-done">Done</span>
+      </div>
+      <p>Forked the repo to <code>spink9186/fixedit-tech</code>, created a <code>preview</code> branch, and enabled GitHub Pages on it. Live preview at <a href="https://spink9186.github.io/fixedit-tech/" style="color:var(--trust-blue);font-weight:500;">spink9186.github.io/fixedit-tech</a>. Every push auto-deploys in ~30&ndash;60s.</p>
+    </div>
+
+    <div class="item-card is-done">
+      <div class="item-head">
+        <span class="item-num">02</span>
+        <h3>Production kept safe</h3>
+        <span class="status-pill status-done">Done</span>
+      </div>
+      <p>The <code>CNAME</code> is removed on the preview branch only, so the fork can't claim the live domain. The eventual PR into the upstream repo will keep <code>CNAME</code> intact, so <code>fixedittech.com</code> is never disrupted.</p>
+    </div>
+
+    <div class="item-card is-done">
+      <div class="item-head">
+        <span class="item-num">03</span>
+        <h3>Contact form made functional</h3>
+        <span class="status-pill status-done">Done</span>
+      </div>
+      <p>Replaced the mock submit handler with a real Web3Forms submission (no backend needed on static hosting). Added a spam honeypot, a guard that refuses to send without a valid key, and live loading / success / error states.</p>
+    </div>
+
+    <div class="item-card is-done">
+      <div class="item-head">
+        <span class="item-num">04</span>
+        <h3>Lead delivery verified end-to-end</h3>
+        <span class="status-pill status-done">Done</span>
+      </div>
+      <p>Live Web3Forms access key installed and deployed. A real test submission returned success and delivered a lead email &mdash; the form genuinely captures inquiries now.</p>
+    </div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">05</span>
+        <h3>Real contact details + dead-file cleanup</h3>
+        <span class="status-pill status-required">Open</span>
+      </div>
+      <p>Contact card still shows placeholder email/phone (<code>hello@fixedittech.com</code> / <code>(555) 010-0199</code>). Repo also has unused duplicate <code>script.js</code> / <code>styles.css</code> at the root worth deleting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 2: DELIVERY READINESS ============ -->
+<section style="background: var(--pale-blue);">
+  <div class="wrap">
+    <span class="eyebrow">Part 2 &middot; Service delivery readiness</span>
+    <h2>What's needed to actually deliver on the site's claims</h2>
+    <p class="lede">The marketing is ahead of the operation. These are the real pieces &mdash; and yes, infrastructure is required; "no new hardware" is only half-true.</p>
+
+    <div class="group-label"><span class="status-pill status-blocker">Blocker</span> Cannot take a single client without these <span class="rule"></span></div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">A1</span>
+        <h3>Choose a PSTN calling model</h3>
+        <span class="status-pill status-blocker">Blocker</span>
+      </div>
+      <p>Teams alone can't dial real phone numbers &mdash; the entire value prop. Pick one: <strong>Microsoft Calling Plans</strong> (MS is carrier), <strong>Operator Connect</strong> (3rd-party carrier, no hardware), or <strong>Direct Routing</strong> (your own SIP trunk + a certified <strong>Session Border Controller</strong> &mdash; real telecom hardware/cloud infra). <span class="why">This single choice drives cost, pricing, porting, and whether "no new hardware" is even true.</span></p>
+    </div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">A2</span>
+        <h3>Microsoft CSP partner + GDAP admin</h3>
+        <span class="status-pill status-blocker">Blocker</span>
+      </div>
+      <p>To configure a client's tenant you need delegated admin via <strong>Granular Delegated Admin Privileges</strong>. Becoming a <strong>Cloud Solution Provider</strong> also lets you resell licenses &mdash; the actual source of recurring margin. Without it you're trading admin passwords, which is unacceptable for a medical client.</p>
+    </div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">A3</span>
+        <h3>BAA framework (HIPAA)</h3>
+        <span class="status-pill status-blocker">Blocker</span>
+      </div>
+      <p>Patient calls, voicemail transcripts, and chat are PHI. You must accept <strong>Microsoft's BAA</strong> <em>and</em> sign your own <strong>BAA with each practice</strong> &mdash; the moment you hold admin access to a tenant with PHI, FixedIT Tech is a Business Associate. This is a legal prerequisite, not a feature. The site markets to medical offices and says nothing about it.</p>
+    </div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">A4</span>
+        <h3>E911 / dynamic emergency addresses</h3>
+        <span class="status-pill status-blocker">Blocker</span>
+      </div>
+      <p><strong>Kari's Law</strong> and <strong>RAY BAUM'S Act</strong> legally require that a 911 call from Teams routes with the correct location &mdash; per office, for a multi-location practice (the exact target). Misconfiguration is illegal and a life-safety risk. Must be in every rollout.</p>
+    </div>
+
+    <div class="group-label"><span class="status-pill status-required">Required</span> Needed to operate honestly &amp; reliably <span class="rule"></span></div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">B1</span>
+        <h3>Number porting process</h3>
+        <span class="status-pill status-required">Required</span>
+      </div>
+      <p>"Existing numbers ported over" = porting orders, Letters of Authorization, carrier coordination, and <strong>2&ndash;4 week timelines</strong> with temporary numbers in between. A real workstream, not a checkbox.</p>
+    </div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">B2</span>
+        <h3>Support model + monitoring + SLA</h3>
+        <span class="status-pill status-required">Required</span>
+      </div>
+      <p>For a medical office, downed phones = patients can't reach the practice = clinical and liability risk. "Ongoing support" needs a ticketing/helpdesk, escalation path, after-hours expectations, and call-quality/uptime monitoring (Teams <strong>Call Quality Dashboard</strong>).</p>
+    </div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">B3</span>
+        <h3>Provisioning / offboarding runbooks</h3>
+        <span class="status-pill status-required">Required</span>
+      </div>
+      <p>The site promises <strong>same-day offboarding</strong> and clean lifecycle management. Across clients, documentation alone won't hold &mdash; you need PowerShell/Graph runbooks (or an identity tool) to deliver provisioning, role changes, and same-day access revocation reliably.</p>
+    </div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">B4</span>
+        <h3>Security &amp; compliance baseline</h3>
+        <span class="status-pill status-required">Required</span>
+      </div>
+      <p>MFA / Conditional Access, audit logging, and retention policies for voicemail transcripts and any call recordings, plus controls on who can access PHI-bearing data. Clients and their cyber insurers will ask.</p>
+    </div>
+
+    <div class="group-label"><span class="status-pill status-later">Will surface</span> Comes up on the first sales call <span class="rule"></span></div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">C1</span>
+        <h3>A fax answer</h3>
+        <span class="status-pill status-later">Will surface</span>
+      </div>
+      <p>Medical offices run on fax (referrals, scripts, insurance) and Teams has <strong>no native fax</strong>. Replacing the phone system invites "what about our fax line?" &mdash; needs a HIPAA-compliant cloud-fax (eFax) answer.</p>
+    </div>
+
+    <div class="item-card">
+      <div class="item-head">
+        <span class="item-num">C2</span>
+        <h3>Honesty corrections to the copy</h3>
+        <span class="status-pill status-later">Will surface</span>
+      </div>
+      <p>Caveat "no new hardware / uses your existing licenses" (Teams Phone is an <strong>~$8/user/mo add-on</strong> plus calling cost plus resource-account licenses for auto-attendants/queues). And "skill-based queues" is really one-queue-per-skill, not a true skills engine &mdash; don't oversell it.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cta-band reveal">
+    <h2>Top of the list</h2>
+    <p class="lede" style="margin: 16px auto 0;">Decide the <strong>PSTN model</strong> (A1) and stand up the <strong>CSP + BAA</strong> path (A2/A3) &mdash; those are what legally and technically allow a first medical client.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <a href="index.html" class="logo">fixed<span class="accent">IT</span>tech</a>
+      <div class="footer-links">
+        <a href="services.html">Services</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 FixedIT Tech</span>
+      <span>Internal planning &mdash; not part of the public site</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
